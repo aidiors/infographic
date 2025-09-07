@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Инфографика: Александр Невский</title>
+    <style>
+        body {
+            background-color: #0a0a12;
+            color: #e0e0e0;
+            font-family: 'Georgia', serif;
+            margin: 0;
+            padding: 20px;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(100, 50, 200, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(50, 200, 255, 0.05) 0%, transparent 20%);
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+        }
+        header {
+            text-align: center;
+            padding: 30px 0;
+            border-bottom: 2px solid #444;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #bb86fc, transparent);
+        }
+        h1 {
+            font-size: 2.8em;
+            color: #bb86fc;
+            text-shadow: 0 0 10px rgba(187, 134, 252, 0.3);
+            margin: 0;
+            background: linear-gradient(to right, #bb86fc, #03dac6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            position: relative;
+            display: inline-block;
+        }
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #bb86fc, transparent);
+        }
+        .subtitle {
+            font-size: 1.4em;
+            color: #03dac6;
+            margin-top: 10px;
+            font-style: italic;
+            letter-spacing: 1px;
+        }
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+            margin: 40px 0;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(to bottom, #bb86fc, #03dac6);
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 15px rgba(187, 134, 252, 0.5);
+            border-radius: 2px;
+        }
+        .timeline-item {
+            display: flex;
+            margin-bottom: 50px;
+            position: relative;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease forwards;
+            animation-delay: 0.2s;
+        }
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .timeline-item:nth-child(odd) {
+            justify-content: flex-end;
+        }
+        .timeline-content {
+            width: 45%;
+            padding: 25px;
+            background: rgba(30, 30, 30, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+            position: relative;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(187, 134, 252, 0.15);
+        }
+        .timeline-content:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7), 0 0 30px rgba(187, 134, 252, 0.4);
+            z-index: 10;
+            border-color: rgba(187, 134, 252, 0.4);
+        }
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-right: 60px;
+        }
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-left: 60px;
+        }
+        .timeline-content::before {
+            content: '';
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background: #bb86fc;
+            border: 2px solid #121212;
+            border-radius: 50%;
+            top: 25px;
+            z-index: 1;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(187, 134, 252, 0.7);
+        }
+        .timeline-content:hover::before {
+            transform: scale(1.4);
+            box-shadow: 0 0 20px rgba(187, 134, 252, 0.9);
+            background: #cf6679;
+        }
+        .timeline-item:nth-child(odd) .timeline-content::before {
+            right: -62px;
+        }
+        .timeline-item:nth-child(even) .timeline-content::before {
+            left: -62px;
+        }
+        .date {
+            font-weight: bold;
+            color: #ff9e00;
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            display: block;
+            text-shadow: 0 0 5px rgba(255, 158, 0, 0.5);
+            letter-spacing: 1px;
+        }
+        .event-title {
+            color: #bb86fc;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(187, 134, 252, 0.3);
+            padding-bottom: 8px;
+            transition: color 0.3s ease;
+        }
+        .timeline-content:hover .event-title {
+            color: #d4a7ff;
+            text-shadow: 0 0 8px rgba(187, 134, 252, 0.4);
+        }
+        .event-desc {
+            line-height: 1.7;
+            font-size: 1.05em;
+        }
+        .context-section {
+            background: rgba(30, 30, 30, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 35px;
+            border-radius: 12px;
+            margin: 45px 0;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(187, 134, 252, 0.1);
+            transition: all 0.4s ease;
+        }
+        .context-section:hover {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 30px rgba(187, 134, 252, 0.25);
+            transform: translateY(-3px);
+            border-color: rgba(187, 134, 252, 0.2);
+        }
+        .context-title {
+            color: #03dac6;
+            font-size: 2em;
+            margin-bottom: 25px;
+            text-align: center;
+            position: relative;
+        }
+        .context-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #03dac6, transparent);
+        }
+        .context-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-top: 30px;
+        }
+        .context-grid > div:nth-child(3) {
+            grid-column: 1 / -1;
+        }
+        .context-card {
+            background: rgba(42, 42, 42, 0.8);
+            backdrop-filter: blur(5px);
+            padding: 25px;
+            border-radius: 10px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(187, 134, 252, 0.1);
+        }
+        .context-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6), 0 0 25px rgba(187, 134, 252, 0.35);
+            z-index: 5;
+            border-color: rgba(187, 134, 252, 0.3);
+        }
+        .context-card h3 {
+            color: #cf6679;
+            margin-top: 0;
+            position: relative;
+            z-index: 2;
+            font-size: 1.4em;
+        }
+        .legacy-section {
+            background: rgba(30, 30, 30, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 35px;
+            border-radius: 12px;
+            margin: 45px 0;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(207, 102, 121, 0.1);
+            transition: all 0.4s ease;
+        }
+        .legacy-title {
+            color: #03dac6;
+            font-size: 2em;
+            margin-bottom: 35px;
+            text-align: center;
+            position: relative;
+        }
+        .legacy-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #03dac6, transparent);
+        }
+        .legacy-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+        .legacy-item {
+            flex: 1;
+            min-width: 270px;
+            background: rgba(42, 42, 42, 0.8);
+            backdrop-filter: blur(5px);
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(207, 102, 121, 0.15);
+        }
+        .legacy-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, #cf6679, transparent);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s ease;
+        }
+        .legacy-item:hover::before {
+            transform: scaleX(1);
+        }
+        .legacy-item:hover {
+            transform: translateY(-9px) scale(1.03);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6), 0 0 30px rgba(207, 102, 121, 0.4);
+            z-index: 5;
+            border-color: rgba(207, 102, 121, 0.4);
+        }
+        .legacy-item h3 {
+            color: #cf6679;
+            margin: 20px 0 15px;
+            font-size: 1.5em;
+        }
+        .image-container {
+            width: 100%;
+            height: 320px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-radius: 8px;
+            background: #2a2a2a;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.5s ease;
+        }
+        .image-container img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            transition: all 0.5s ease;
+        }
+        .context-section .image-container {
+            height: 480px;
+        }
+        .map-container .image-container {
+            height: 480px;
+        }
+        .context-card:hover .image-container,
+        .legacy-item:hover .image-container,
+        .battle-card:hover .image-container {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5), 0 0 20px rgba(187, 134, 252, 0.3);
+            border-color: rgba(187, 134, 252, 0.3);
+        }
+        .battle-section {
+            background: rgba(30, 30, 30, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 35px;
+            border-radius: 12px;
+            margin: 45px 0;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(207, 102, 121, 0.1);
+            transition: all 0.4s ease;
+        }
+        .battle-title {
+            color: #03dac6;
+            font-size: 2em;
+            margin-bottom: 35px;
+            text-align: center;
+            position: relative;
+        }
+        .battle-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #03dac6, transparent);
+        }
+        .battle-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(370px, 1fr));
+            gap: 35px;
+        }
+        .battle-card {
+            background: rgba(42, 42, 42, 0.8);
+            backdrop-filter: blur(5px);
+            padding: 25px;
+            border-radius: 10px;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(207, 102, 121, 0.15);
+        }
+        .battle-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, transparent, #cf6679, transparent);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.5s ease;
+        }
+        .battle-card:hover::before {
+            transform: scaleX(1);
+        }
+        .battle-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6), 0 0 25px rgba(207, 102, 121, 0.35);
+            z-index: 5;
+            border-color: rgba(207, 102, 121, 0.4);
+        }
+        .battle-card h3 {
+            color: #cf6679;
+            margin-top: 0;
+            text-align: center;
+            font-size: 1.6em;
+        }
+        .map-section {
+            background: rgba(30, 30, 30, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 35px;
+            border-radius: 12px;
+            margin: 45px 0;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(187, 134, 252, 0.1);
+            transition: all 0.4s ease;
+        }
+        .map-section:hover {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 30px rgba(187, 134, 252, 0.25);
+            transform: translateY(-3px);
+            border-color: rgba(187, 134, 252, 0.2);
+        }
+        .map-container {
+            background: rgba(42, 42, 42, 0.8);
+            backdrop-filter: blur(5px);
+            padding: 30px;
+            border-radius: 12px;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(187, 134, 252, 0.15);
+        }
+        .map-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, transparent, #bb86fc, #03dac6, transparent);
+            transform: scaleX(0);
+            transform-origin: center;
+            transition: transform 0.6s ease;
+        }
+        .map-container:hover::before {
+            transform: scaleX(1);
+        }
+        .map-container:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 30px rgba(187, 134, 252, 0.4);
+            border-color: rgba(187, 134, 252, 0.4);
+        }
+        .map-title {
+            color: #bb86fc;
+            font-size: 2em;
+            text-align: center;
+            margin-bottom: 25px;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+        .map-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #bb86fc, #03dac6, transparent);
+            border-radius: 3px;
+        }
+        .map-container:hover .map-title {
+            color: #d4a7ff;
+            text-shadow: 0 0 15px rgba(187, 134, 252, 0.6);
+        }
+        .map-desc {
+            line-height: 1.7;
+            text-align: center;
+            max-width: 850px;
+            margin: 0 auto;
+            font-size: 1.15em;
+            color: #e0e0e0;
+        }
+        footer {
+            text-align: center;
+            padding: 35px 0;
+            color: #777;
+            font-size: 0.95em;
+            border-top: 1px solid #333;
+            margin-top: 45px;
+            position: relative;
+        }
+        footer::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #bb86fc, transparent);
+        }
+        /* Анимация для появления элементов при прокрутке */
+        .timeline-item {
+            animation: none;
+        }
+        .timeline-item.visible {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+        /* Glow эффекты для интерактивных элементов */
+        .glow-effect {
+            position: relative;
+        }
+        .glow-effect::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 12px;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+            box-shadow: 0 0 0px 0px rgba(187, 134, 252, 0.7);
+        }
+        .timeline-content:hover::after,
+        .context-card:hover::after,
+        .legacy-item:hover::after,
+        .battle-card:hover::after,
+        .map-container:hover::after {
+            opacity: 1;
+            box-shadow: 0 0 30px 5px rgba(187, 134, 252, 0.5);
+        }
+        /* Плавные переходы для всех элементов */
+        * {
+            transition: all 0.3s ease;
+        }
+        /* Эффекты для заголовков */
+        h2, h3 {
+            transition: all 0.3s ease;
+        }
+        /* Стили для частиц */
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        .particles-js-canvas-el {
+            display: block;
+        }
+        /* Анимация для всего контента при загрузке */
+        .container {
+            animation: fadeIn 1s ease forwards;
+            opacity: 0;
+        }
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="particles-js"></div>
+    <div class="container">
+        <header>
+            <h1>Александр Невский</h1>
+            <div class="subtitle">Росов усердный защитник</div>
+        </header>
+        <div class="context-section">
+            <h2 class="context-title">Исторический контекст XIII века</h2>
+            <div class="context-grid">
+                <div class="context-card glow-effect">
+                    <div class="image-container">
+                        <img src="https://i.pinimg.com/originals/24/22/dc/2422dce9574d8088fb81f5fcdec127f1.jpg" alt="Монголо-татарское нашествие">
+                    </div>
+                    <h3>Монголо-татарское нашествие</h3>
+                    <p>1223 год — битва на реке Калке. 1237-1240 — разорение русских городов Батыем. Русь попадает в зависимость от Золотой Орды.</p>
+                </div>
+                <div class="context-card glow-effect">
+                    <div class="image-container">
+                        <img src="https://i.pinimg.com/originals/8f/b0/a3/8fb0a388bd1e2fd527d187bd2c45aff1.jpg" alt="Агрессия с Запада">
+                    </div>
+                    <h3>Агрессия с Запада</h3>
+                    <p>Тевтонский орден и орден меченосцев, поддерживаемые папой римским, стремятся распространить католицизм и захватить русские земли.</p>
+                </div>
+                <div class="context-card glow-effect">
+                    <h3>Новгородская республика</h3>
+                    <p>Богатый торговый центр с республиканским строем. Князь отвечал в основном за военные дела и защиту земель. Ведущую политическую роль играла вече — собрание влиятельных бояр, купцов и других горожан.</p>
+                </div>
+            </div>
+        </div>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-content glow-effect">
+                    <span class="date">1221</span>
+                    <h3 class="event-title">Рождение</h3>
+                    <p class="event-desc">Родился в семье князя Ярослава Всеволодовича и княгини Феодосии. Имя "Александр" означает "защитник людей".</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content glow-effect">
+                    <span class="date">~1226</span>
+                    <h3 class="event-title">Княжеский постриг</h3>
+                    <p class="event-desc">Совершен в одном из соборов. Обряд перехода из детства в отрочество: отстригание прядей волос, получение первого меча и коня.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content glow-effect">
+                    <span class="date">1234</span>
+                    <h3 class="event-title">Первая битва с рыцарями</h3>
+                    <p class="event-desc">Столкновение новгородцев с орденом меченосцев на реке Омовже. Русские победили, оттеснив врага на лед, где многие рыцари утонули.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content glow-effect">
+                    <span class="date">1236</span>
+                    <h3 class="event-title">Новгородский князь</h3>
+                    <p class="event-desc">Александр становится князем Новгорода. Занимается укреплением границ, строит крепости на реке Шелони.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content glow-effect">
+                    <span class="date">1240</span>
+                    <h3 class="event-title">Невская битва</h3>
+                    <p class="event-desc">15 июля. Разгром шведского войска у устья реки Ижоры. Шведы во главе с Биргером Магнусом не успели построиться в боевой порядок. Александр получил прозвище "Невский".</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content glow-effect">
+                    <span class="date">1240-1241</span>
+                    <h3 class="event-title">Изгнание из Новгорода</h3>
+                    <p class="event-desc">Рассорился с новгородцами, возможно, из-за отказа идти в поход против немцев. Уехал в Переяславль-Залесский.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content glow-effect">
+                    <span class="date">1242</span>
+                    <h3 class="event-title">Ледовое побоище</h3>
+                    <p class="event-desc">5 апреля на Чудском озере. Александр применил тактику "клещей": заманил рыцарей в центр и атаковал с флангов конницей. Рыцари потерпели сокрушительное поражение.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content glow-effect">
+                    <span class="date">1242</span>
+                    <h3 class="event-title">Поход против Литвы</h3>
+                    <p class="event-desc">Летом того же года Александр выступил против литовцев, чтобы продемонстрировать силу Новгородской земли и предотвратить будущие набеги.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content glow-effect">
+                    <span class="date">1247-1252</span>
+                    <h3 class="event-title">Поездки в Орду</h3>
+                    <p class="event-desc">Александр и его брат Андрей отправляются к хану для решения вопроса о наследовании владимирского престола. Александр получает Киев, Андрей — Владимир.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content glow-effect">
+                    <span class="date">1248</span>
+                    <h3 class="event-title">Отказ от унии с Римом</h3>
+                    <p class="event-desc">Папа Иннокентий IV отправляет послов с предложением подчиниться Риму в обмен на помощь против Орды. Александр отвечает: "От вас учения не принимаем".</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content glow-effect">
+                    <span class="date">1256</span>
+                    <h3 class="event-title">Поход на шведов</h3>
+                    <p class="event-desc">Александр выступает против объединенного шведско-немецкого войска, намеревавшегося построить крепость на реке Нарова. Поход успешен, враг бежит.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content glow-effect">
+                    <span class="date">1262</span>
+                    <h3 class="event-title">Последняя поездка в Орду</h3>
+                    <p class="event-desc">Александр отправляется к хану Берке, чтобы "отмолить людей от беды" — освободить русских от участия в ордынских походах. Выкупает множество пленников.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content glow-effect">
+                    <span class="date">14 ноября 1263</span>
+                    <h3 class="event-title">Кончина</h3>
+                    <p class="event-desc">Умер в Городце на Волге. Принял монашеский постриг с именем Алексий. Похоронен во Владимире. В 1724 году мощи перенесены в Санкт-Петербург, в Александро-Невскую лавру.</p>
+                </div>
+            </div>
+        </div>
+        <div class="map-section">
+            <div class="map-container glow-effect">
+                <div class="image-container">
+                    <img src="https://i.pinimg.com/originals/02/32/50/023250ad5e74a353d35b1ad6a27fba72.jpg" alt="Карта походов">
+                </div>
+                <h3 class="map-title">Карта походов</h3>
+                <p class="map-desc">Военные кампании Александра Невского охватывали северо-западные земли Руси: от Невы до Чудского озера, от Литвы до Швеции. Его стратегические действия позволили защитить русские земли от западных захватчиков и сохранить независимость православной веры.</p>
+            </div>
+        </div>
+        <div class="battle-section">
+            <h2 class="battle-title">Ключевые сражения</h2>
+            <div class="battle-grid">
+                <div class="battle-card glow-effect">
+                    <div class="image-container">
+                        <img src="https://mcdn2.tvzvezda.ru/storage/armystandart_images/2021/07/16/f462998622d445d4bc1fc8acb712682e.jpg" alt="Невская битва">
+                    </div>
+                    <h3>Невская битва (1240)</h3>
+                    <p>15 июля 1240 года. Разгром шведского войска у устья реки Ижоры. Александр получил прозвище "Невский".</p>
+                </div>
+                <div class="battle-card glow-effect">
+                    <div class="image-container">
+                        <img src="https://cdn.culture.ru/images/fb7cfb71-58f1-57a1-b58c-104a19ce975a" alt="Ледовое побоище">
+                    </div>
+                    <h3>Ледовое побоище (1242)</h3>
+                    <p>5 апреля 1242 года на Чудском озере. Тактика "клещей" принесла победу над рыцарями Тевтонского ордена.</p>
+                </div>
+            </div>
+        </div>
+        <div class="legacy-section">
+            <h2 class="legacy-title">Наследие</h2>
+            <div class="legacy-container">
+                <div class="legacy-item glow-effect">
+                    <div class="image-container">
+                        <img src="https://avatars.mds.yandex.net/i?id=35bfea760d673542bdf75e4e1b1c3f05_l-5136262-images-thumbs&n=13" alt="Канонизация">
+                    </div>
+                    <h3>Канонизация</h3>
+                    <p>В 1547 году причислен к лику святых на церковном соборе.</p>
+                </div>
+                <div class="legacy-item glow-effect">
+                    <div class="image-container">
+                        <img src="https://avatars.dzeninfra.ru/get-zen_doc/4727350/pub_631b01959a8c157aae7e0f64_631b01bd8cfe570980310aa7/scale_1200" alt="Орден Александра Невского">
+                    </div>
+                    <h3>Орден Александра Невского</h3>
+                    <p>Учрежден императрицей Екатериной I в 1725 году по воле Петра I как одна из высших наград России.</p>
+                </div>
+                <div class="legacy-item glow-effect">
+                    <div class="image-container">
+                        <img src="https://i.pinimg.com/736x/60/d5/b8/60d5b8552721d4aea519565865e80b7b.jpg" alt="Александро-Невская лавра">
+                    </div>
+                    <h3>Александро-Невская лавра</h3>
+                    <p>Основана Петром I в 1710 году недалеко от места Невской битвы. С 1724 года здесь покоятся мощи святого.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Инициализация частиц
+        function initParticles() {
+            const canvas = document.createElement('canvas');
+            canvas.className = 'particles-js-canvas-el';
+            document.getElementById('particles-js').appendChild(canvas);
+            
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            
+            // Настройки частиц
+            const particles = [];
+            const particleCount = 100;
+            const connectionDistance = 150;
+            
+            class Particle {
+                constructor() {
+                    this.reset();
+                }
+                
+                reset() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.size = Math.random() * 2.5 + 0.5;
+                    this.speedX = (Math.random() - 0.5) * 1.2;
+                    this.speedY = (Math.random() - 0.5) * 1.2;
+                    this.color = `hsl(${Math.random() * 60 + 240}, 70%, 70%)`;
+                    this.opacity = Math.random() * 0.5 + 0.1;
+                }
+                
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    
+                    // Отскок от краев
+                    if (this.x > canvas.width || this.x < 0) {
+                        this.speedX = -this.speedX;
+                    }
+                    if (this.y > canvas.height || this.y < 0) {
+                        this.speedY = -this.speedY;
+                    }
+                    
+                    // Плавное изменение скорости для более естественного движения
+                    this.speedX += (Math.random() - 0.5) * 0.05;
+                    this.speedY += (Math.random() - 0.5) * 0.05;
+                    
+                    // Ограничение скорости
+                    const maxSpeed = 1.5;
+                    this.speedX = Math.max(-maxSpeed, Math.min(maxSpeed, this.speedX));
+                    this.speedY = Math.max(-maxSpeed, Math.min(maxSpeed, this.speedY));
+                }
+                
+                draw() {
+                    ctx.fillStyle = this.color;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+            
+            // Создание частиц
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+            
+            // Соединение частиц линиями
+            function connectParticles() {
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        
+                        if (distance < connectionDistance) {
+                            const opacity = 1 - distance / connectionDistance;
+                            ctx.strokeStyle = `rgba(187, 134, 252, ${opacity * 0.3})`;
+                            ctx.lineWidth = 0.5;
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+            }
+            
+            // Анимация
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                // Рисуем звездное небо фон
+                ctx.fillStyle = 'rgba(10, 10, 18, 0.2)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                // Обновляем и рисуем частицы
+                for (let i = 0; i < particles.length; i++) {
+                    particles[i].update();
+                    particles[i].draw();
+                }
+                
+                // Соединяем частицы линиями
+                connectParticles();
+                
+                requestAnimationFrame(animate);
+            }
+            
+            // Обработка изменения размера окна
+            window.addEventListener('resize', function() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                
+                // Пересоздаем частицы при изменении размера окна
+                particles.length = 0;
+                for (let i = 0; i < particleCount; i++) {
+                    particles.push(new Particle());
+                }
+            });
+            
+            animate();
+        }
+        
+        // Анимация появления элементов при прокрутке
+        document.addEventListener('DOMContentLoaded', function() {
+            // Инициализируем частицы
+            initParticles();
+            
+            // Анимация появления контента
+            setTimeout(() => {
+                document.querySelector('.container').style.opacity = '1';
+            }, 100);
+            
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            
+            timelineItems.forEach(item => {
+                observer.observe(item);
+            });
+            
+            // Добавляем эффекты для всех элементов с классом glow-effect
+            const glowElements = document.querySelectorAll('.glow-effect');
+            glowElements.forEach(element => {
+                element.addEventListener('mouseenter', () => {
+                    element.style.zIndex = '10';
+                });
+                
+                element.addEventListener('mouseleave', () => {
+                    setTimeout(() => {
+                        element.style.zIndex = '';
+                    }, 300);
+                });
+            });
+            
+            // Добавляем эффект мерцания для частиц
+            setInterval(() => {
+                const particles = document.querySelectorAll('.context-card, .timeline-content, .legacy-item, .battle-card, .map-container');
+                const randomParticle = particles[Math.floor(Math.random() * particles.length)];
+                randomParticle.style.boxShadow = '0 0 20px rgba(187, 134, 252, 0.5)';
+                
+                setTimeout(() => {
+                    randomParticle.style.boxShadow = '';
+                }, 500);
+            }, 3000);
+        });
+    </script>
+</body>
+</html>
